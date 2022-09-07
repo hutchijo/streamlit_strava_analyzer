@@ -1,0 +1,4 @@
+*.toml
+*.lock
+temp.md
+.DS_Store

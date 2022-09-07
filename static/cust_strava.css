@@ -1,0 +1,313 @@
+/* latin-ext */
+@font-face {
+  font-family: 'strava_connect';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/josefinsans/v25/Qw3PZQNVED7rKGKxtqIqX5E-AVSJrOCfjY46_DjQbMhhLybpUVzEEaq2.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'strava_connect';
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/josefinsans/v25/Qw3PZQNVED7rKGKxtqIqX5E-AVSJrOCfjY46_DjQbMZhLybpUVzEEQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+body
+{
+ font-family: 'strava_connect';
+ overflow-y: scroll;
+}
+
+div.stButton {
+  max-width: 250px;
+  padding-left:0px;
+  padding-bottom: 20px;
+  border:0px;
+  color: #ffffff;
+  outline: none;
+}
+
+div.stButton > button:first-child {
+  padding-top:8px;
+  padding-bottom:5px;
+  padding-left:8px;
+  padding-right:8px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  color: #ffffff;
+  background-color: #6B6C6C;
+  background-clip: border-box;
+  border: 1px solid rgba(128, 128, 128, 0.8);
+  font-family: 'strava_connect';
+  border-radius: 0.33rem;
+}
+
+div.stButton > button:focus {
+  border-color: #fc4c02 !important;
+  color: #ffffff;
+  background-color: #fc4c02;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+}
+
+div.stButton > button:active {
+  border-color: #fc4c02 !important;
+  color: #ffffff;
+  background-color: #fc4c02;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+}
+
+div.stButton > button:hover {
+  border-color: #fc4c02 !important;
+  color: #ffffff;
+  background-color: #fc4c02;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+}
+
+div.stButton > button:focus:not(:active)
+ {
+  color: #ffffff;
+  background-color: #6B6C6C;
+  background-clip: border-box;
+  border-color: #6B6C6C !important;
+  cursor: pointer;
+  outline: none;
+}
+
+.card-header {
+  padding-top: 0px;
+  padding-left: 20px;
+  padding-bottom: 15px;
+  margin-bottom: 0;
+  background-color: #444;
+  border: 1px solid rgba(128, 128, 128, 0.8);
+}
+
+.card-header:first-child {
+  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+}
+
+.vitalorem-brand-large {
+  display: inline-block;
+  margin-right: 1rem;
+  font-size: 40px;
+  font-family: 'strava_connect';
+  color: white;
+}
+
+.vitalorem-brand-medium {
+  display: inline-block;
+  margin-right: 1rem;
+  font-size: 30px;
+  font-family: 'strava_connect';
+  color: white;
+}
+
+.vitalorem-brand-small {
+  display: inline-block;
+  margin-right: 1rem;
+  font-size: 25px;
+  font-family: 'strava_connect';
+  color: white;
+}
+
+.vitalorem-brand-smallest {
+  display: inline-block;
+  margin-right: 1rem;
+  font-size: 20px;
+  padding-left:10px;
+  font-family: 'strava_connect';
+  color: white;
+}
+
+.link_list
+{
+  padding-left:30px;
+  display:block;
+  padding-bottom:8px;
+  padding-top:8px;
+}
+
+div.stDateInput > label:first-child{
+  color: #ffffff;
+  background-color: #444;
+  font-size: 20px;
+  font-family: 'strava_connect';
+  padding-left:20px;
+}
+
+/* This is the main gray contianer for all of our content */
+div.block-container > div:first-child > div:first-child{
+  padding-top: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 15px;
+  margin-bottom: 0;
+  background-color: #444;
+  border: 1px solid rgba(128, 128, 128, 0.8);
+  border-radius: 8px;
+  display: inline-block;
+  width:755px;
+  min-width:755px;
+}
+
+section[aria-expanded="true"]{
+  background-color: #444;
+}
+
+div.stDateInput {
+  max-width: 250px;
+  padding-top: 0px;
+  padding-left: 0px;
+  padding-bottom: 15px;
+}
+
+div.stDateInput > label:first-child {
+  padding-left:0px;
+}
+
+div.stDateInput > div:first-child > div:first-child > div:first-child:focus {
+  border-color: #259BC6 !important;
+}
+
+div.stDataFrame,div.stAlert{
+  width:94%;
+  margin-left:0px;
+}
+
+/* Start - Format the streamlit_option_menu component */
+div[data-testid="stVerticalBlock"] > div:first-child {
+  width:85%;
+  padding-top:15px;
+  padding-bottom: 0px;
+  display: inline-block;
+}
+
+/* End - Format the streamlit_option_menu component */
+
+/* Start - Format KPI Metrics */
+#container
+{
+  width: 100%;
+  display: flex;
+}
+
+.kpi-card
+{
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  padding-top: 10px;
+  padding-right: 10px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-bottom: 25px;
+  margin-left: 0px;
+  margin-right: 30px;
+  border-radius: 10px;
+  font-family:  'strava_connect';
+  border: 1px solid rgba(128, 128, 128, 1);
+}
+
+.metric-name {
+  display: block;
+  font-size: 25px;
+  font-weight: bolder;
+  text-align: center;
+}
+
+.metric-value {
+  text-align: center;
+  display:block;
+  font-size: 45px;
+}
+
+/*******************************************************/
+/* Start to customize the slider */
+/*******************************************************/
+div.stSlider > label:first-child
+{
+  display:none;
+}
+
+/* this is the width of the slider and the bottom text */
+div[data-baseweb="slider"]
+{
+  text-align:center;
+  width:80%;
+  margin-left: 50px;
+  margin-right: 50px;
+  color: rgba(128, 128, 128, 0.8)
+}
+
+div[data-baseweb="slider"] > div:first-child > div:first-child
+{
+  background: linear-gradient(to right, rgba(172, 177, 195, 0.25) 0%, rgba(172, 177, 195, 0.25) 0%, goldenrod 0%, #fc4c02 100%, rgba(172, 177, 195, 0.25) 100%, rgba(172, 177, 195, 0.25) 100%);
+}
+
+/* thsi is the top text on the slider */
+div[role="slider"] > div:first-child
+{
+  color: white;
+}
+
+div[role="slider"]{
+  background-color: #fc4c02;
+}
+/*******************************************************/
+/* End the customizations of the slider */
+/*******************************************************/
+
+/*******************************************************/
+/* Start to customize the vega-chart */
+/*******************************************************/
+div.chart-wrapper > canvas:first-child
+{
+  border-radius: 8px;
+  text-align:center;
+}
+/*******************************************************/
+/* End the customizations of the vega-chart */
+/*******************************************************/
+
+
+/*******************************************************/
+/* Start to customize the selectbox */
+/*******************************************************/
+div.stSelectBox > label:first-child
+{
+  display:none;
+}
+
+div[data-baseweb="select"] > div:first-child
+{
+  border-color: #fc4c02;
+  text-align:center;
+  width:510px;
+
+}
+
+div[data-baseweb="popover"]
+{
+  left:-115px;
+}
+
+div[role="listbox"]
+{
+  width:500px;
+}
+/*******************************************************/
+/* End the customizations of the selectbox */
+/*******************************************************/

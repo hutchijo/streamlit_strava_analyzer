@@ -1,0 +1,22 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+streamlit = ">=1.10.0"  # Requires multipage app
+streamlit_option_menu = "*"
+pandas = "*"
+snowflake-connector-python = ">=2.7.12"
+snowflake-snowpark-python = "*"
+httpx = "*"
+pyarrow = "==8.0.0"
+tabulate = "*"
+vega-datasets = "*"
+asyncio = "*"
+pydeck = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8.12"
