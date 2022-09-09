@@ -99,36 +99,39 @@ def get_activities_data(force_reload=False):
     if (force_reload):
 
         # Delete a all of the sessions state values
-        del st.session_state['all_activity_data']
-        del st.session_state['curr_activities_df']
-        del st.session_state['curr_activities_df_agg']
+        del st.session_state['curr_weather_data']
+        del st.session_state['curr_activities']
+        del st.session_state['curr_activities_agg']
 
     # Grab all of the activities and place this into session_state
-    if 'all_activity_data' not in st.session_state:
+    if 'curr_weather_data' not in st.session_state or 'curr_activities' not in st.session_state or 'curr_activities_agg' not in st.session_state:
 
         # Create a new Snowflake session
         snow_session = create_snowflake_session()
 
-        # Get all of the raw activities
+        # Get all of the raw activities and weather data
         all_activities_raw_df = snow_session.table('STRAVA_ACTIVITIES_RAW')
+        all_activities_with_weather_df = snow_session.table('ACTIVITIES_WITH_WEATHER')
 
-        # Place the result into the session_state
-        st.session_state['all_activity_data'] = all_activities_raw_df
-
-    # Grab the current activities and current activities aggregated into session state
-    if 'curr_activities_df' not in st.session_state or 'curr_activities_df_agg' not in st.session_state:
+        # Select only the colums we need for the weather data
+        curr_weather_data_df = all_activities_with_weather_df \
+            .select('ACTIVITY_ID', 'POSTAL_CODE', 'TEMP_IN_FARENHEIT', 'TEMP_FEEL_IN_FARENHEIT', 'CLOUD_COVER_PCT', \
+            concat(year('START_DATE'), lit('-'), month('START_DATE')).as_('ACTIVITY_MONTH_YEAR'), \
+            year('START_DATE').as_('ACTIVITY_YEAR'), \
+            month('START_DATE').as_('ACTIVITY_MONTH')).sort('ACTIVITY_YEAR', 'ACTIVITY_MONTH')
 
         # Set up the window rank to get only the latest activities based on uploaded date time
         ACTIVITY_RANK = Window.partitionBy(col('ACTIVITY_ID')).orderBy(col('UPLOADED_DATETIME').desc())
 
         # Filter down to only the most current activities as they may have been uploaded more than once
-        curr_activities_df = st.session_state.all_activity_data \
+        curr_activities_df = all_activities_raw_df \
             .select('ACTIVITY_ID', 'NAME', 'START_DATE', \
             concat(year('START_DATE'), lit('-'), month('START_DATE')).as_('ACTIVITY_MONTH_YEAR'), \
             year('START_DATE').as_('ACTIVITY_YEAR'), \
             month('START_DATE').as_('ACTIVITY_MONTH'), \
             round('START_LATITUDE',3).as_('START_LATITUDE'), \
             round('START_LONGITUDE',3).as_('START_LONGITUDE'), \
+            'DISTANCE','ELAPSED_TIME', 'TOTAL_ELEVATION_GAIN', 'AVERAGE_SPEED', 'AVERAGE_CADENCE', 'AVERAGE_HEARTRATE', 'MAX_HEARTRATE', 'SUFFER_SCORE', \
             'UPLOADED_DATETIME',\
             rank().over(ACTIVITY_RANK).as_('RANKING')).filter(col('RANKING') == 1)
 
@@ -139,10 +142,7 @@ def get_activities_data(force_reload=False):
           .select('ACTIVITY_COUNT', 'ACTIVITY_MONTH_YEAR', 'ACTIVITY_YEAR', 'ACTIVITY_MONTH') \
           .sort('ACTIVITY_YEAR', 'ACTIVITY_MONTH')
 
-        # Place the current activities and current activities aggregated into session state
-        st.session_state['curr_activities_df'] = curr_activities_df.to_pandas()
-        st.session_state['curr_activities_df_agg'] = curr_activities_df_agg.to_pandas()
-
-    # We already have the activity data so grab it from session
-    curr_activities_df = st.session_state.curr_activities_df
-    curr_activities_df_agg = st.session_state.curr_activities_df_agg
+        # Place the current weather, current activities and current activities aggregated into session state
+        st.session_state['curr_weather_data'] = curr_weather_data_df.to_pandas()
+        st.session_state['curr_activities'] = curr_activities_df.to_pandas()
+        st.session_state['curr_activities_agg'] = curr_activities_df_agg.to_pandas()

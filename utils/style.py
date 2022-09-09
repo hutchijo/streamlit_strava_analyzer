@@ -36,7 +36,7 @@ def read_custom_style():
 def custom_metric(all_metrics):
 
     # Iniitlaize vasriables
-    cust_metric_makrdown = '<div id="container">'
+    cust_metric_markdown = '<div id="cust_container">'
 
     # Based on the number of metrics we have change the width percentage
     width_pct = 100 / len(all_metrics)
@@ -57,23 +57,32 @@ def custom_metric(all_metrics):
             image_markdown=f"""<i class='{curr_metric.icon_name} fa-solid'></i>"""
 
         # Add the details for the current metric
-        cust_metric_makrdown = cust_metric_makrdown + f"""<div class='kpi-card' style='background-color: {curr_metric.box_color}; width: {width_pct}%'>
+        cust_metric_markdown = cust_metric_markdown + f"""<div class='kpi-card' style='background-color: {curr_metric.box_color}; width: {width_pct}%'>
                 <span class="metric-name">{image_markdown}&nbsp;{curr_metric.metric_name}</span>
                 <span class="metric-value">{curr_metric.metric_value}</span>
             </div>"""
 
     # Add the closing div tag to the metric
-    cust_metric_makrdown + cust_metric_makrdown + '</div>'
+    cust_metric_markdown + cust_metric_markdown + '</div>'
 
     # Return the custom metric markdown
-    return cust_metric_makrdown
+    return cust_metric_markdown
 
 # Define the appearance of a page title
 def page_title(page_title, icon_name):
 
-    # Add the details for the cpage title
+    # Add the details for the page title
     page_title_markdown = f"""<div class='vitalorem-brand-large' style='padding-bottom:2px;position:relative;top:-23px;'>
             <i class='{icon_name} fa-solid' style='font-size:22px;'></i>&nbsp;{page_title}</div>"""
 
     # Return the page_title markdown
     return page_title_markdown
+
+# Define the appearance of a subpage title
+def subpage_title(subpage_title):
+
+    # Add the details for the subpage title
+    subpage_title_markdown = f"""<div class='vitalorem-brand-small' style='padding-bottom:2px;'>{subpage_title}</div>"""
+
+    # Return the subpage_title markdown
+    return subpage_title_markdown

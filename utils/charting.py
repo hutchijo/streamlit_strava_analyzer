@@ -117,7 +117,7 @@ def map_with_scatterplot(curr_dataframe):
         "ScatterplotLayer",
         curr_dataframe_agg,
         pickable=True,
-        opacity=0.8,
+        opacity=0.28,
         stroked=True,
         filled=True,
         radius_scale=25,
@@ -135,3 +135,60 @@ def map_with_scatterplot(curr_dataframe):
 
     # Render the chart in streamlit
     deckchart = st.pydeck_chart(pdk.Deck(initial_view_state=view_state,layers=[layer] ,tooltip={'html': '<b>Total Activities:</b> {ACTIVITY_COUNT}','style': {'color': 'white'}}))
+
+def map_corr_matrix(curr_weather_df, curr_activities_df):
+
+    #Merge the weather and the activities dataframes
+    merged_weather_and_activities = pd.merge(curr_weather_df, curr_activities_df, on=['ACTIVITY_ID'])
+
+    # Drop all rows with any NaN values
+    merged_weather_and_activities = merged_weather_and_activities.dropna()
+
+    # Select just the columns we want to work with
+    merged_weather_and_activities = merged_weather_and_activities[['TEMP_IN_FARENHEIT', 'DISTANCE', 'ELAPSED_TIME', 'TOTAL_ELEVATION_GAIN', 'AVERAGE_SPEED', 'AVERAGE_CADENCE', 'AVERAGE_HEARTRATE', 'MAX_HEARTRATE', 'SUFFER_SCORE']]
+
+    # Now correlate the different variables in the dataframe
+    corrMatrix = merged_weather_and_activities.corr().round(2).reset_index().rename(columns = {'index':'Var1'}).melt(id_vars = ['Var1'],  value_name = 'Corr', var_name = 'Var2')
+
+    # Create the heatmap first
+    heatmap = alt.Chart(corrMatrix).mark_rect(
+    ).encode(
+        alt.X('Var1:O', title = ''),
+        alt.Y('Var2:O', title = '', axis=alt.Axis(labelAngle=0)),
+         alt.Color('Corr:Q',
+                    scale=alt.Scale(scheme='goldorange'))
+    )
+
+    # Add the correlation values as a text mark
+    text = heatmap.mark_text(baseline='middle', fontSize=15, font='strava_connect').encode(
+        text=alt.Text('Corr:Q', format='.2'),
+        tooltip=['Var1:O', 'Var2:O', alt.Tooltip('Corr', title='Correlation')],
+        color=alt.condition(
+            alt.datum['Corr'] >= 0.95,
+            alt.value('black'),
+            alt.value('white')
+        )
+    )
+
+    # Set the height, width, title and other properties
+    corrMatrix_chart = (heatmap + text).properties(
+        height = 700,
+        padding={'top':35})
+
+    # Configure the Axis, Title and Legend
+    corrMatrix_chart.configure_axis(
+        labelFontSize=20,
+        titleFontSize=20,
+        titlePadding=20,
+        labelFont='strava_connect',
+        titleFont='strava_connect'
+    ).configure_title(
+        fontSize=30,
+        font='strava_connect',
+        anchor='start'
+    ).configure_legend(
+        labelFontSize=20,
+        titleFontSize=20)
+
+    # Finally, use Streamlit to show the chart
+    st.altair_chart(corrMatrix_chart, use_container_width=True)

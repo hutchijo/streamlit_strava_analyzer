@@ -21,6 +21,11 @@ body
  overflow-y: scroll;
 }
 
+html
+{
+  overflow-y: scroll;
+}
+
 div.stButton {
   max-width: 250px;
   padding-left:0px;
@@ -150,7 +155,7 @@ div.stDateInput > label:first-child{
 
 /* This is the main gray contianer for all of our content */
 div.block-container > div:first-child > div:first-child{
-  padding-top: 0px;
+  padding-top: 10px;
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 15px;
@@ -159,8 +164,8 @@ div.block-container > div:first-child > div:first-child{
   border: 1px solid rgba(128, 128, 128, 0.8);
   border-radius: 8px;
   display: inline-block;
-  width:755px;
-  min-width:755px;
+  width:775px;
+  min-width:775px;
 }
 
 section[aria-expanded="true"]{
@@ -187,18 +192,8 @@ div.stDataFrame,div.stAlert{
   margin-left:0px;
 }
 
-/* Start - Format the streamlit_option_menu component */
-div[data-testid="stVerticalBlock"] > div:first-child {
-  width:85%;
-  padding-top:15px;
-  padding-bottom: 0px;
-  display: inline-block;
-}
-
-/* End - Format the streamlit_option_menu component */
-
 /* Start - Format KPI Metrics */
-#container
+#cust_container
 {
   width: 100%;
   display: flex;
@@ -288,7 +283,11 @@ div.chart-wrapper > canvas:first-child
 /*******************************************************/
 div.stSelectBox > label:first-child
 {
-  display:none;
+  display: inline-block;
+  margin-right: 1rem;
+  font-size: 25px;
+  font-family: 'strava_connect';
+  color: white;
 }
 
 div[data-baseweb="select"] > div:first-child
@@ -296,7 +295,6 @@ div[data-baseweb="select"] > div:first-child
   border-color: #fc4c02;
   text-align:center;
   width:510px;
-
 }
 
 div[data-baseweb="popover"]
@@ -308,6 +306,27 @@ div[role="listbox"]
 {
   width:500px;
 }
+
+.css-1yjuwjr {
+  display: inline-block;
+  margin-right: 1rem;
+  font-size: 25px;
+  font-family: 'strava_connect';
+  color: white;
+}
 /*******************************************************/
 /* End the customizations of the selectbox */
+/*******************************************************/
+
+/*******************************************************/
+/* START page level fix that prevents the screen from bouncing when switching tabs
+/*******************************************************/
+
+.css-12oz5g7 {
+  margin-top: 55px;
+  padding: 0px;
+}
+
+/*******************************************************/
+/* END page level fix that prevents the screen from bouncing when switching tabs
 /*******************************************************/
