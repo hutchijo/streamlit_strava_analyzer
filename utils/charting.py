@@ -77,31 +77,6 @@ def build_area_chart(curr_dataframe):
     # Finally, use Streamlit to show the chart
     st.altair_chart(configure_curr_activities_chart, use_container_width=True)
 
-def map_with_path():
-
-    # We need the ability to select a single activity and then make a call back to Strava to get the map.summary_poline field
-    # This field holds all of the coordinates we need - downloading it all to the database is a much larger operation
-    # Once downloaded you need to use this package to decode the cordinates - https://pypi.org/project/polyline/
-
-    # This is an example of how to use Pydeck with sample data
-    trip = pd.read_json('https://raw.githubusercontent.com/uber-common/deck.gl-data/master/website/sf.trips.json')
-
-    trip["coordinates"] = trip["waypoints"].apply(lambda f: [item["coordinates"] for item in f])
-    trip.drop(["waypoints"], axis=1, inplace=True)
-
-    layer = pdk.Layer(
-        'TripsLayer',
-        trip,
-        get_path="coordinates",
-        get_color=[252, 76, 1],
-        width_min_pixels=5,
-        rounded=True,
-        trail_length=600
-    )
-
-    view_state = pdk.ViewState(latitude=37.7749295,longitude=-122.4194155,zoom=11,pitch=45)
-    deckchart = st.pydeck_chart(pdk.Deck(initial_view_state=view_state,layers=[layer]))
-
 def map_with_scatterplot(curr_dataframe):
 
     # Now aggregate to the number of activities by month
@@ -192,3 +167,28 @@ def map_corr_matrix(curr_weather_df, curr_activities_df):
 
     # Finally, use Streamlit to show the chart
     st.altair_chart(corrMatrix_chart, use_container_width=True)
+
+def map_with_path():
+
+    # We need the ability to select a single activity and then make a call back to Strava to get the map.summary_poline field
+    # This field holds all of the coordinates we need - downloading it all to the database is a much larger operation
+    # Once downloaded you need to use this package to decode the cordinates - https://pypi.org/project/polyline/
+
+    # This is an example of how to use Pydeck with sample data
+    trip = pd.read_json('https://raw.githubusercontent.com/uber-common/deck.gl-data/master/website/sf.trips.json')
+
+    trip["coordinates"] = trip["waypoints"].apply(lambda f: [item["coordinates"] for item in f])
+    trip.drop(["waypoints"], axis=1, inplace=True)
+
+    layer = pdk.Layer(
+        'TripsLayer',
+        trip,
+        get_path="coordinates",
+        get_color=[252, 76, 1],
+        width_min_pixels=5,
+        rounded=True,
+        trail_length=600
+    )
+
+    view_state = pdk.ViewState(latitude=37.7749295,longitude=-122.4194155,zoom=11,pitch=45)
+    deckchart = st.pydeck_chart(pdk.Deck(initial_view_state=view_state,layers=[layer]))
